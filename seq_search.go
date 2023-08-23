@@ -2,13 +2,14 @@ package main
 
 import (
 	"bufio"
-	"bytes"
 	"encoding/hex"
 	"fmt"
+	"index/suffixarray"
 	"io/fs"
 	"log"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 )
 
@@ -64,9 +65,15 @@ func searchFile(path string, bytePattern []byte) {
 	if err != nil {
 		fmt.Printf("Failed to read bytes from file %s\n", path)
 	}
-	index := bytes.Index(dat, bytePattern)
-	if index != -1 {
-		fmt.Printf("Offset 0x%X in %s\n", index, path)
+	index := suffixarray.New(dat)
+	offsets := index.Lookup(bytePattern, -1)
+	if len(offsets) > 0 {
+		fmt.Printf("%s at offsets: ", path)
+		sort.Ints(offsets)
+		for i := 0; i < len(offsets); i++ {
+			fmt.Printf("%X ", offsets[i])
+		}
+		fmt.Printf("\n\n")
 	}
 }
 
