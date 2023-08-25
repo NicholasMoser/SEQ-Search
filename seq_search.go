@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	version := "1.1.0"
+	version := "1.1.1"
 	fmt.Printf("SEQ Search %s\n", version)
 
 	fmt.Print("SEQ files directory: ")
