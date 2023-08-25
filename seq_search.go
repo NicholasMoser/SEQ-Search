@@ -44,8 +44,8 @@ func main() {
 		hexBytes = strings.TrimSpace(hexBytes)
 		bytePattern, err := hex.DecodeString(hexBytes)
 		if err != nil {
-			fmt.Println("Invalid hex bytes")
-			exit(1)
+			fmt.Print("Invalid hex bytes\n\n")
+			continue
 		}
 		fmt.Println()
 
